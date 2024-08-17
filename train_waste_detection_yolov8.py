@@ -50,13 +50,20 @@ update_yaml_paths(yaml_file, new_base_path)
 # model = YOLO("yolov8l-obb") # 44.5M params
 model = YOLO("yolov8x-obb") # 69.5M params
 
+# Run time args
+epochs = 160
+imgsz = 640
+plots = True
+save_period = 50
+batch = 256
 save_dir_ = "./"
+device = [0, 1, 2, 3]
 
 train_result = model.train(data=os.path.join(dataset.location, "data.yaml"),
-                           epochs=160,
-                           imgsz=640,
-                           plots=True,
-                           save_period=50,
+                           epochs=epochs,
+                           imgsz=imgsz,
+                           plots=plots,
+                           save_period=save_period,
                            save_dir=save_dir_,
-                           batch=-1,
-                           device=[0,1,2,3])
+                           batch=-batch,
+                           device=device)
