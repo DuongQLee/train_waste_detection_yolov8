@@ -3,9 +3,10 @@ from ultralytics import YOLO
 import ultralytics
 import os
 
+from roboflow import Roboflow
 rf = Roboflow(api_key="jIXqeO4L77RymWj9htLH")
 project = rf.workspace("capstone-project-rmit").project("waste-detection-z1ra8")
-version = project.version(4)
+version = project.version(5)
 dataset = version.download("yolov8-obb")
 
 def update_yaml_paths(yaml_file, new_base_path):
@@ -57,5 +58,5 @@ train_result = model.train(data=os.path.join(dataset.location, "data.yaml"),
                            plots=True,
                            save_period=50,
                            save_dir=save_dir_,
-                           batch=0.9,
-                           device=[0])
+                           batch=-1,
+                           device=[0,1,2,3])
